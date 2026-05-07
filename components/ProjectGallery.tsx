@@ -66,12 +66,12 @@ export default function ProjectGallery() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease }}
-          className="relative overflow-hidden h-[420px] md:h-[620px]"
+          className="relative overflow-hidden h-[420px] md:h-[620px] group"
         >
           <img
             src="https://picsum.photos/seed/210/800/1200"
             alt="Farmacia Catona"
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover md:grayscale md:group-hover:grayscale-0 [transition:filter_400ms_ease]"
           />
           <div
             className="absolute inset-0"
@@ -104,13 +104,13 @@ export default function ProjectGallery() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease, delay: i * 0.08 }}
-              className="relative overflow-hidden h-[210px] md:h-[308px]"
+              className="relative overflow-hidden h-[210px] md:h-[308px] group"
             >
               <img
                 src={`https://picsum.photos/seed/${p.seed}/600/600`}
                 alt={p.name}
                 loading="lazy"
-                className="absolute inset-0 w-full h-full object-cover grayscale"
+                className="absolute inset-0 w-full h-full object-cover md:grayscale md:group-hover:grayscale-0 [transition:filter_400ms_ease]"
               />
               <div
                 className="absolute inset-0"
