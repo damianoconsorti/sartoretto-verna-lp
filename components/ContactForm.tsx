@@ -13,12 +13,13 @@ interface FormState {
   farmacia: string;
   email: string;
   telefono: string;
+  citta: string;
   tipologia: string;
   messaggio: string;
 }
 
 const empty: FormState = {
-  nome: '', cognome: '', farmacia: '', email: '', telefono: '', tipologia: '', messaggio: '',
+  nome: '', cognome: '', farmacia: '', email: '', telefono: '', citta: '', tipologia: '', messaggio: '',
 };
 
 const inputCls =
@@ -61,6 +62,7 @@ export default function ContactForm() {
           email: form.email,
           telefono: form.telefono,
           tipo_progetto: form.tipologia,
+          citta: form.citta,
           messaggio: form.messaggio,
         }),
       });
@@ -154,6 +156,12 @@ export default function ContactForm() {
                     value={form.telefono} onChange={(e) => update('telefono', e.target.value)} className={inputCls} />
                 </Field>
               </div>
+
+              {/* Città */}
+              <Field label="Città" id="citta">
+                <input id="citta" type="text" placeholder="Es. Roma"
+                  value={form.citta} onChange={(e) => update('citta', e.target.value)} className={inputCls} />
+              </Field>
 
               {/* Nome farmacia */}
               <Field label="Nome farmacia" id="farmacia">
