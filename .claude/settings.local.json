@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python .claude/skills/ui-ux-pro-max/scripts/search.py \"luxury architecture pharmacy furniture elegance premium service\" --design-system -p \"Sartoretto Verna\" -f markdown)",
+      "Bash(python .claude/skills/ui-ux-pro-max/scripts/search.py \"animation scroll reveal luxury\" --domain ux)",
+      "Bash(python .claude/skills/ui-ux-pro-max/scripts/search.py \"layout responsive form landing\" --stack react)",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5173)",
+      "WebFetch(domain:sartorettoverna.it)",
+      "WebFetch(domain:www.sartorettoverna.it)"
+    ]
+  }
+}
