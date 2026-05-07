@@ -157,17 +157,17 @@ export default function ContactForm() {
                 </Field>
               </div>
 
-              {/* Città */}
-              <Field label="Città" id="citta">
-                <input id="citta" type="text" placeholder="Es. Roma"
-                  value={form.citta} onChange={(e) => update('citta', e.target.value)} className={inputCls} />
-              </Field>
-
-              {/* Nome farmacia */}
-              <Field label="Nome farmacia" id="farmacia">
-                <input id="farmacia" type="text" placeholder="Farmacia Centrale"
-                  value={form.farmacia} onChange={(e) => update('farmacia', e.target.value)} className={inputCls} />
-              </Field>
+              {/* Città + Nome farmacia */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <Field label="Città" id="citta">
+                  <input id="citta" type="text" placeholder="Es. Roma"
+                    value={form.citta} onChange={(e) => update('citta', e.target.value)} className={inputCls} />
+                </Field>
+                <Field label="Nome farmacia" id="farmacia">
+                  <input id="farmacia" type="text" placeholder="Farmacia Centrale"
+                    value={form.farmacia} onChange={(e) => update('farmacia', e.target.value)} className={inputCls} />
+                </Field>
+              </div>
 
               {/* Select tipologia */}
               <Field label="Tipo di progetto" id="tipologia">
