@@ -61,6 +61,7 @@ export default function ContactForm() {
           email: form.email,
           telefono: form.telefono,
           tipo_progetto: form.tipologia,
+          messaggio: form.messaggio,
         }),
       });
       setSent(true);
