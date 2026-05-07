@@ -3,13 +3,23 @@ import { motion } from 'framer-motion';
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
+const ZAPIER_URL = 'https://hooks.zapier.com/hooks/catch/1977593/4y67td9/';
+
 const projectTypes = ['Ampliamento', 'Ristrutturazione', 'Nuova apertura', 'Trasferimento', 'Restyling', 'Altro'];
 
 interface FormState {
-  nome: string; farmacia: string; email: string; telefono: string; tipologia: string; messaggio: string;
+  nome: string;
+  cognome: string;
+  farmacia: string;
+  email: string;
+  telefono: string;
+  tipologia: string;
+  messaggio: string;
 }
 
-const empty: FormState = { nome: '', farmacia: '', email: '', telefono: '', tipologia: '', messaggio: '' };
+const empty: FormState = {
+  nome: '', cognome: '', farmacia: '', email: '', telefono: '', tipologia: '', messaggio: '',
+};
 
 const inputCls =
   'bg-transparent border-b border-[#ccc] text-[#0a0a0a] text-base font-sans font-light py-3 w-full focus:outline-none focus:border-[#0a0a0a] transition-colors duration-200 placeholder:text-[#bbb]';
@@ -28,15 +38,41 @@ function Field({ label, id, children }: { label: string; id: string; children: R
 export default function ContactForm() {
   const [form, setForm] = useState<FormState>(empty);
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   function update(k: keyof FormState, v: string) {
     setForm((p) => ({ ...p, [k]: v }));
   }
-  function handleSubmit(e: FormEvent) { e.preventDefault(); setSent(true); }
+
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+    setSending(true);
+    setError(null);
+
+    try {
+      await fetch(ZAPIER_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nome: form.nome,
+          cognome: form.cognome,
+          email: form.email,
+          telefono: form.telefono,
+          tipo_progetto: form.tipologia,
+        }),
+      });
+      setSent(true);
+    } catch {
+      setError('Si è verificato un errore. Riprova o chiamaci.');
+    } finally {
+      setSending(false);
+    }
+  }
 
   return (
     <section id="contatti" className="border-t border-[#e0e0e0]">
-      {/* 1 colonna mobile, 2 colonne desktop */}
       <div className="grid grid-cols-1 lg:grid-cols-2">
 
         {/* Left: headline */}
@@ -73,7 +109,7 @@ export default function ContactForm() {
           </div>
         </motion.div>
 
-        {/* Right: form — piena larghezza mobile */}
+        {/* Right: form */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -82,26 +118,27 @@ export default function ContactForm() {
           className="px-6 md:px-14 lg:px-16 py-16 md:py-28 bg-[#f5f5f5]"
         >
           {sent ? (
-            <div className="flex flex-col gap-6">
-              <div className="w-12 h-1 bg-[#0a0a0a]" />
+            <div className="flex flex-col gap-5">
+              <div className="w-12 h-1 bg-green-500" />
               <h3 className="font-display text-[#0a0a0a] uppercase text-3xl md:text-4xl leading-none">
-                Messaggio ricevuto.
+                Messaggio inviato.
               </h3>
-              <p className="text-[#555] text-base md:text-lg font-sans font-light leading-relaxed max-w-[30ch]">
-                Ti contatteremo entro 48 ore con il tuo primo concept preliminare.
+              <p className="text-green-600 text-base md:text-lg font-sans font-semibold leading-relaxed">
+                Grazie! Ti ricontatteremo entro 24 ore.
               </p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col gap-8" noValidate>
-              {/* Nome + Farmacia — 1 col mobile, 2 col sm+ */}
+
+              {/* Nome + Cognome */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                <Field label="Nome e cognome" id="nome">
-                  <input id="nome" type="text" required autoComplete="name" placeholder="Dr. Mario Rossi"
+                <Field label="Nome" id="nome">
+                  <input id="nome" type="text" required autoComplete="given-name" placeholder="Mario"
                     value={form.nome} onChange={(e) => update('nome', e.target.value)} className={inputCls} />
                 </Field>
-                <Field label="Nome farmacia" id="farmacia">
-                  <input id="farmacia" type="text" required placeholder="Farmacia Centrale"
-                    value={form.farmacia} onChange={(e) => update('farmacia', e.target.value)} className={inputCls} />
+                <Field label="Cognome" id="cognome">
+                  <input id="cognome" type="text" required autoComplete="family-name" placeholder="Rossi"
+                    value={form.cognome} onChange={(e) => update('cognome', e.target.value)} className={inputCls} />
                 </Field>
               </div>
 
@@ -117,7 +154,13 @@ export default function ContactForm() {
                 </Field>
               </div>
 
-              {/* Select tipologia — full width */}
+              {/* Nome farmacia */}
+              <Field label="Nome farmacia" id="farmacia">
+                <input id="farmacia" type="text" placeholder="Farmacia Centrale"
+                  value={form.farmacia} onChange={(e) => update('farmacia', e.target.value)} className={inputCls} />
+              </Field>
+
+              {/* Select tipologia */}
               <Field label="Tipo di progetto" id="tipologia">
                 <select id="tipologia" required value={form.tipologia}
                   onChange={(e) => update('tipologia', e.target.value)}
@@ -138,10 +181,18 @@ export default function ContactForm() {
               <div className="flex flex-col gap-3">
                 <button
                   type="submit"
-                  className="w-full sm:w-auto self-start inline-flex items-center justify-center gap-4 bg-[#0a0a0a] text-white font-sans font-bold text-sm tracking-[0.22em] uppercase px-8 py-4 hover:bg-acid hover:text-dark transition-colors duration-200"
+                  disabled={sending}
+                  className="w-full sm:w-auto self-start inline-flex items-center justify-center gap-4 bg-[#0a0a0a] text-white font-sans font-bold text-sm tracking-[0.22em] uppercase px-8 py-4 hover:bg-acid hover:text-dark transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[#0a0a0a] disabled:hover:text-white"
                 >
-                  Prenota una consulenza →
+                  {sending ? 'Invio in corso…' : 'Prenota una consulenza →'}
                 </button>
+
+                {error && (
+                  <p className="text-red-600 text-sm font-sans font-medium">
+                    {error}
+                  </p>
+                )}
+
                 <p className="text-[#aaa] text-sm font-sans">
                   Inviando accetti la nostra{' '}
                   <a href="#" className="underline hover:text-[#555] transition-colors">Privacy Policy</a>.
