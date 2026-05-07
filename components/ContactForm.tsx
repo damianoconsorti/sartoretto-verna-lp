@@ -62,6 +62,7 @@ export default function ContactForm() {
           email: form.email,
           telefono: form.telefono,
           tipo_progetto: form.tipologia,
+          nome_farmacia: form.farmacia,
           citta: form.citta,
           messaggio: form.messaggio,
         }),
