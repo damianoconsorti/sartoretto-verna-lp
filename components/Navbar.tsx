@@ -39,7 +39,7 @@ export default function Navbar() {
         justifyContent: 'center',
         height: isMobile ? '110px' : '80px',
         gap: isMobile ? '8px' : '0',
-        paddingTop: !isMobile && !scrolled ? '16px' : '0',
+        paddingTop: !isMobile && !scrolled ? '60px' : '0',
       }}
     >
       {/* Logo */}
