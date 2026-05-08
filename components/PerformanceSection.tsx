@@ -9,7 +9,7 @@ const panels = [
     heading: 'ESPERIENZA',
     body: 'Oltre 60 anni di cantieri nel mondo. Sappiamo cosa funziona, cosa fallisce e perché. Ogni progetto porta dentro di sé decenni di apprendimento sul campo.',
     link: 'Scopri la nostra storia',
-    overlayColor: 'rgba(0,181,181,0.50)',
+    overlayColor: 'rgba(204,255,0,0.50)',
     img: 'https://storage.googleapis.com/lp-assets-prod/yHL3HA6j9ARWnPLvbF8fdD/ec5y4oSZuvQ5uF56eyWyGh',
   },
   {
