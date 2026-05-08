@@ -17,7 +17,7 @@ const panels = [
     heading: 'STRATEGIA',
     body: 'Il layout non è estetica: è strategia. Ogni scelta — dall\'altezza dello scaffale all\'illuminazione — è calibrata per aumentare il ticket medio e la fedeltà del paziente.',
     link: 'Scopri il metodo',
-    overlayColor: 'rgba(10,10,10,0.80)',
+    overlayColor: 'rgba(0,181,181,0.38)',
     img: 'https://storage.googleapis.com/lp-assets-prod/yHL3HA6j9ARWnPLvbF8fdD/mpFUHVbKW3PQXRUAg9RxuY',
   },
   {
