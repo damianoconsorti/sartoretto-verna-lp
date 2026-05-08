@@ -41,6 +41,21 @@ body {
   }
 }
 
+/* ── Marquee ──────────────────────────────────────────────────── */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee 55s linear infinite;
+  will-change: transform;
+}
+
+.marquee-wrapper:hover .marquee-track {
+  animation-play-state: paused;
+}
+
 /* ── Moving Dot Card ──────────────────────────────────────────── */
 @keyframes moveDot {
   0%, 100% {
