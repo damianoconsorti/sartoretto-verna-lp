@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const ease = [0.22, 1, 0.36, 1] as const;
+const asset = (fileName: string) => `${import.meta.env.BASE_URL}${fileName}`;
 
 interface Project {
   name: string;
@@ -15,15 +16,15 @@ const featured: Project = {
   name: 'Farmacia Catona',
   location: 'Reggio Calabria',
   category: 'Nuova apertura',
-  imgSrc: '/CATONA.jpg',
+  imgSrc: asset('CATONA.jpg'),
   gradient: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,181,181,0.32) 100%)',
 };
 
 const small: Project[] = [
-  { name: 'Farmacia Bellini',      location: 'Catania', category: 'Ristrutturazione', imgSrc: '/BELLINI.jpg',       gradient: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.08) 60%, transparent 100%)' },
-  { name: 'Farmacia San Leo',      location: 'Rimini',  category: 'Restyling',        imgSrc: '/SAN-LEO.jpg',       gradient: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.08) 60%, transparent 100%)' },
-  { name: 'Farmacia Appio Latino', location: 'Roma',    category: 'Ampliamento',      imgSrc: '/APPIO-LATINO.jpg',  gradient: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.08) 60%, transparent 100%)' },
-  { name: 'Farmacia Beneduce',     location: 'Napoli',  category: 'Trasferimento',    imgSrc: '/BENEDUCE.jpg',      gradient: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.08) 60%, transparent 100%)' },
+  { name: 'Farmacia Bellini',      location: 'Catania', category: 'Ristrutturazione', imgSrc: asset('BELLINI.jpg'),       gradient: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.08) 60%, transparent 100%)' },
+  { name: 'Farmacia San Leo',      location: 'Rimini',  category: 'Restyling',        imgSrc: asset('SAN-LEO.jpg'),       gradient: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.08) 60%, transparent 100%)' },
+  { name: 'Farmacia Appio Latino', location: 'Roma',    category: 'Ampliamento',      imgSrc: asset('APPIO-LATINO.jpg'),  gradient: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.08) 60%, transparent 100%)' },
+  { name: 'Farmacia Beneduce',     location: 'Napoli',  category: 'Trasferimento',    imgSrc: asset('BENEDUCE.jpg'),      gradient: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.08) 60%, transparent 100%)' },
 ];
 
 export default function ProjectGallery() {
