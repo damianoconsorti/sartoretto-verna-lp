@@ -42,7 +42,7 @@ const videos: VideoItem[] = [
   },
 ];
 
-function VideoCard({ video, index }: { video: VideoItem; index: number }) {
+const VideoCard: React.FC<{ video: VideoItem; index: number }> = ({ video, index }) => {
   const [playing, setPlaying] = useState(false);
   const ref = useRef<HTMLVideoElement>(null);
 
@@ -110,7 +110,7 @@ function VideoCard({ video, index }: { video: VideoItem; index: number }) {
       </div>
     </motion.div>
   );
-}
+};
 
 export default function Testimonials() {
   return (

@@ -89,7 +89,7 @@ export default function ContactForm() {
         >
           <div>
             <p className="text-teal text-sm tracking-[0.32em] uppercase font-sans font-semibold mb-5">
-              Consulenza gratuita
+              Parla con un Architect Manager
             </p>
             <h2
               className="font-display text-[#0a0a0a] uppercase leading-none mb-7"
@@ -99,12 +99,12 @@ export default function ContactForm() {
               un progetto?
             </h2>
             <p className="text-[#444] text-base md:text-lg font-sans font-light leading-relaxed max-w-[38ch]">
-              Raccontaci la tua farmacia. Il nostro team ti risponderà entro 48 ore con un primo concept e una stima preliminare gratuita. Senza impegno.
+              Raccontaci la tua farmacia. Il nostro team ti risponderà entro 48 ore lavorative per una prima valutazione del progetto e dei prossimi passi.
             </p>
           </div>
 
           <div className="flex flex-col gap-4">
-            {['Risposta entro 48 ore lavorative', 'Nessun costo, nessun impegno', 'Concept preliminare incluso'].map((item) => (
+            {['Risposta entro 48 ore lavorative', 'Analisi orientativa della tua esigenza', 'Percorso progettuale definito su misura'].map((item) => (
               <div key={item} className="flex items-center gap-3">
                 <div className="w-1.5 h-1.5 bg-[#0a0a0a] shrink-0" />
                 <span className="text-[#555] text-base font-sans">{item}</span>
@@ -128,7 +128,7 @@ export default function ContactForm() {
                 Messaggio inviato.
               </h3>
               <p className="text-green-600 text-base md:text-lg font-sans font-semibold leading-relaxed">
-                Grazie! Ti ricontatteremo entro 24 ore.
+                Grazie! Ti ricontatteremo entro 48 ore lavorative.
               </p>
             </div>
           ) : (

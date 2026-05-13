@@ -2,7 +2,7 @@ import React from 'react';
 
 const items = [
   'Restyling', 'Ristrutturazione', 'Ampliamento', 'Nuova apertura',
-  'Trasferimento', 'Arredamento', 'Progettazione', 'Consulenza gratuita',
+  'Trasferimento', 'Arredamento', 'Progettazione', 'Consulenza strategica',
   'Installazione', 'Produzione italiana', 'Design', 'Identità visiva',
   'Benessere', 'Unicità', 'Relazione',
 ];

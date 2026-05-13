@@ -89,7 +89,7 @@ export default function MethodSection() {
             href="#contatti"
             className="inline-flex items-center gap-4 bg-[#0a0a0a] text-white font-sans font-bold text-sm tracking-[0.2em] uppercase px-7 py-4 hover:bg-acid hover:text-dark transition-colors duration-200 self-start"
           >
-            Inizia con una consulenza gratuita →
+            Inizia con una consulenza →
           </a>
         </motion.div>
       </div>

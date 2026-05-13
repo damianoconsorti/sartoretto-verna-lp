@@ -953,7 +953,7 @@
               "elType": "widget",
               "widgetType": "text-editor",
               "settings": {
-                "editor": "Hai visto i risultati. Hai capito il metodo. Ora trasforma la tua visione in realta.<br><br>Prenota una consulenza gratuita. Nessun impegno, solo valore per il tuo progetto.",
+                "editor": "Hai visto i risultati. Hai capito il metodo. Ora trasforma la tua visione in realta.<br><br>Richiedi una consulenza con un Architect Manager e scopri il percorso piu adatto al tuo progetto.",
                 "align": "left",
                 "text_color": "#cbd5e1"
               }
