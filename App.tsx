@@ -14,7 +14,7 @@ import Footer from './components/Footer';
 
 function App() {
   return (
-    <main className="bg-dark text-white overflow-x-hidden">
+    <main className="bg-dark text-white overflow-x-hidden" data-footer-socials="true">
       <Navbar />
       <Hero />
       <TrustBar />
