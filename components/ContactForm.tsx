@@ -76,7 +76,7 @@ export default function ContactForm() {
   }
 
   return (
-    <section id="contatti" className="border-t border-[#e0e0e0]">
+    <section id="contatti" className="border-t border-[#e0e0e0]" data-footer-socials="true">
       <div className="grid grid-cols-1 lg:grid-cols-2">
 
         {/* Left: headline */}
