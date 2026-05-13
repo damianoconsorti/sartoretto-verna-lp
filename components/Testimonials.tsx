@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 
 const ease = [0.22, 1, 0.36, 1] as const;
+const asset = (fileName: string) => `${import.meta.env.BASE_URL}${fileName}`;
 
 interface VideoItem {
   name: string;
@@ -16,28 +17,28 @@ const videos: VideoItem[] = [
     name: 'Farmacia San Leo',
     location: 'Reggio Calabria (RC)',
     src: 'https://sv-it.b-cdn.net/Farmacia%20San%20Leo%20-%20%20intervista.mp4',
-    poster: '/SAN-LEO.jpg',
+    poster: asset('SAN-LEO.jpg'),
     accent: '#00B5B5',
   },
   {
     name: 'Farmacia Zucca',
     location: 'Segrate (MI)',
     src: 'https://sv-it.b-cdn.net/zucca%20intervista.mp4',
-    poster: '/ZUCCA.jpg',
+    poster: asset('ZUCCA.jpg'),
     accent: '#CCFF00',
   },
   {
     name: 'Farmacia Sundas',
     location: 'Senorbì (CA)',
     src: 'https://sv-it.b-cdn.net/intervista%20Sundas.mp4',
-    poster: '/SUNDAS.jpg',
+    poster: asset('SUNDAS.jpg'),
     accent: '#CC00FF',
   },
   {
     name: 'Antica Farmacia Berardelli',
     location: 'Cosenza (CS)',
     src: 'https://sv-it.b-cdn.net/Intervista%20Berardelli_verticale.mov',
-    poster: '/BERARDELLI.jpg',
+    poster: asset('BERARDELLI.jpg'),
     accent: '#CCFF00',
   },
 ];
