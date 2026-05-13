@@ -9,6 +9,7 @@ const root = fileURLToPath(new URL('.', import.meta.url));
 await build({
   configFile: false,
   root,
+  base: '/sartoretto-verna-lp/',
   plugins: [react(), tailwindcss()],
   resolve: { alias: { '@': root } },
   build: { outDir: 'dist' },
