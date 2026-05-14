@@ -4,10 +4,10 @@ import { motion } from 'framer-motion';
 const ease = [0.22, 1, 0.36, 1] as const;
 
 const stats = [
-  { value: '60',    unit: 'anni',  label: 'di storia e specializzazione esclusiva nel settore farmacia' },
-  { value: '1',     unit: 'spec.', label: 'unica specializzazione: la farmacia, da sempre' },
-  { value: '3.000', unit: '+',     label: 'realizzazioni completate in tutto il mondo' },
-  { value: '3',     unit: 'dim.',  label: 'spazio · business · comunicazione integrata' },
+  { value: '1965', unit: '', label: 'Fondazione' },
+  { value: '3A', unit: '', label: 'generazione di architetti' },
+  { value: '+40', unit: '', label: 'paesi nel mondo dove abbiamo realizzato farmacie' },
+  { value: '+2500', unit: '', label: 'realizzazioni completate nel mondo' },
 ];
 
 export default function StatsSection() {
