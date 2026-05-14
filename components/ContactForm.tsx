@@ -52,20 +52,24 @@ export default function ContactForm() {
     setError(null);
 
     try {
+      const payload: Record<string, string> = {
+        nome: form.nome,
+        cognome: form.cognome,
+        email: form.email,
+        telefono: form.telefono,
+        tipo_progetto: form.tipologia,
+        nome_farmacia: form.farmacia,
+        citta: form.citta,
+        messaggio: form.messaggio,
+        pagina: window.location.href,
+        origine: 'github-pages-sartoretto-verna-lp',
+      };
+
       await fetch(ZAPIER_URL, {
         method: 'POST',
         mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          nome: form.nome,
-          cognome: form.cognome,
-          email: form.email,
-          telefono: form.telefono,
-          tipo_progetto: form.tipologia,
-          nome_farmacia: form.farmacia,
-          citta: form.citta,
-          messaggio: form.messaggio,
-        }),
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(payload).toString(),
       });
       setSent(true);
     } catch {
@@ -76,7 +80,7 @@ export default function ContactForm() {
   }
 
   return (
-    <section id="contatti" className="border-t border-[#e0e0e0]" data-footer-socials="true">
+    <section id="contatti" className="border-t border-[#e0e0e0]">
       <div className="grid grid-cols-1 lg:grid-cols-2">
 
         {/* Left: headline */}
