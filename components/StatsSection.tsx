@@ -4,10 +4,10 @@ import { motion } from 'framer-motion';
 const ease = [0.22, 1, 0.36, 1] as const;
 
 const stats = [
-  { value: '1965', unit: '', label: 'Fondazione' },
-  { value: '3A', unit: '', label: 'generazione di architetti' },
-  { value: '+40', unit: '', label: 'paesi nel mondo dove abbiamo realizzato farmacie' },
-  { value: '+2500', unit: '', label: 'realizzazioni completate nel mondo' },
+  { value: '1965', color: '#CCFF00', label: 'Fondazione' },
+  { value: '3A', color: '#00B5B5', label: 'generazione di architetti' },
+  { value: '+40', color: '#CC00FF', label: 'paesi nel mondo dove abbiamo realizzato farmacie' },
+  { value: '+2500', color: '#0a0a0a', label: 'realizzazioni completate nel mondo' },
 ];
 
 export default function StatsSection() {
@@ -22,20 +22,17 @@ export default function StatsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease, delay: i * 0.08 }}
-            className="px-6 md:px-10 py-10 md:py-14 flex flex-col gap-2"
+            className="min-h-[180px] md:min-h-[220px] px-6 md:px-10 py-10 md:py-14 flex flex-col items-center justify-center gap-3 text-center"
           >
-            <div className="flex items-end gap-1.5 leading-none flex-wrap">
+            <div className="flex items-end justify-center gap-1.5 leading-none flex-wrap">
               <span
-                className="font-display text-[#0a0a0a] uppercase"
-                style={{ fontSize: 'clamp(2.4rem, 5vw, 5.5rem)' }}
+                className="font-display uppercase"
+                style={{ fontSize: 'clamp(2.6rem, 5vw, 5.6rem)', color: s.color }}
               >
                 {s.value}
               </span>
-              <span className="text-[#999] font-display text-xl mb-1 uppercase tracking-wide">
-                {s.unit}
-              </span>
             </div>
-            <p className="text-[#555] text-sm md:text-base font-sans font-light leading-relaxed">
+            <p className="text-[#555] text-sm md:text-base font-sans font-light leading-relaxed max-w-[24ch]">
               {s.label}
             </p>
           </motion.div>
