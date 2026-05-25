@@ -10,6 +10,10 @@ interface Project {
   category: string;
   imgSrc: string;
   gradient: string;
+  brief: string;
+  challenge: string;
+  solution: string;
+  feedback: string;
 }
 
 const featured: Project = {
@@ -18,13 +22,57 @@ const featured: Project = {
   category: 'Nuova apertura',
   imgSrc: asset('CATONA.jpg'),
   gradient: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,181,181,0.32) 100%)',
+  brief: 'Progettazione di un nuovo concept retail focalizzato su percorsi di acquisto fluidi e punti consulenza distintivi.',
+  challenge: 'Dare identità a un locale appena acquisito, migliorando accoglienza e segmentazione prodotti senza compromettere il budget.',
+  solution: 'Progetto d’arredo su misura con layout a “zone esperienziali”, scaffali dinamici e una zona servizi facilmente riconoscibile.',
+  feedback: '“La farmacia è diventata più attraente e ordinata, i clienti restano più a lungo e abbiamo registrato un aumento delle vendite.”',
 };
 
 const small: Project[] = [
-  { name: 'Farmacia Bellini',      location: 'Catania', category: 'Ristrutturazione', imgSrc: asset('BELLINI.jpg'),       gradient: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.08) 60%, transparent 100%)' },
-  { name: 'Farmacia San Leo',      location: 'Rimini',  category: 'Restyling',        imgSrc: asset('SAN-LEO.jpg'),       gradient: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.08) 60%, transparent 100%)' },
-  { name: 'Farmacia Appio Latino', location: 'Roma',    category: 'Ampliamento',      imgSrc: asset('APPIO-LATINO.jpg'),  gradient: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.08) 60%, transparent 100%)' },
-  { name: 'Farmacia Beneduce',     location: 'Napoli',  category: 'Trasferimento',    imgSrc: asset('BENEDUCE.jpg'),      gradient: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.08) 60%, transparent 100%)' },
+  {
+    name: 'Farmacia Bellini',
+    location: 'Catania',
+    category: 'Ristrutturazione',
+    imgSrc: asset('BELLINI.jpg'),
+    gradient: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.08) 60%, transparent 100%)',
+    brief: 'Riorganizzazione degli spazi e creazione di un percorso cliente più chiaro per valorizzare prodotti premium e servizi.',
+    challenge: 'Lo spazio era diviso male e il cliente non riusciva a trovare rapidamente i reparti principali.',
+    solution: 'Nuova disposizione delle isole merceologiche, segnaletica lineare e un desk accoglienza centrale per guidare il flusso.',
+    feedback: '“Ora la farmacia comunica professionalità e il traffico si è stabilizzato nella parte più strategica del negozio.”',
+  },
+  {
+    name: 'Farmacia San Leo',
+    location: 'Rimini',
+    category: 'Restyling',
+    imgSrc: asset('SAN-LEO.jpg'),
+    gradient: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.08) 60%, transparent 100%)',
+    brief: 'Restyling completo per modernizzare l’immagine e creare un’esperienza più confortevole per il cliente.',
+    challenge: 'L’arredamento datato e le tonalità scure rendevano lo spazio percepito come poco invitante.',
+    solution: 'Nuovi materiali luminosi, cornici verdi e un’illuminazione studiata per valorizzare prodotti e aree consulenza.',
+    feedback: '“Il cambiamento visivo ha reso la farmacia più moderna e il feedback dei clienti è stato immediatamente positivo.”',
+  },
+  {
+    name: 'Farmacia Appio Latino',
+    location: 'Roma',
+    category: 'Ampliamento',
+    imgSrc: asset('APPIO-LATINO.jpg'),
+    gradient: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.08) 60%, transparent 100%)',
+    brief: 'Ampliamento mirato per includere nuovi servizi wellness e area estetica all’interno della farmacia.',
+    challenge: 'Gestire un’estensione senza interrompere il negozio esistente e mantenere una forte identità di brand.',
+    solution: 'Proposta spaziale integrata con un’esperienza di ingresso chiara e un layout lineare tra ingresso, servizi e espositore.',
+    feedback: '“Abbiamo ottenuto un nuovo spazio valorizzante che sembra naturale e funziona molto bene anche in termini di vendite.”',
+  },
+  {
+    name: 'Farmacia Beneduce',
+    location: 'Napoli',
+    category: 'Trasferimento',
+    imgSrc: asset('BENEDUCE.jpg'),
+    gradient: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.08) 60%, transparent 100%)',
+    brief: 'Trasferimento e riprogettazione completa del punto vendita per conservare clientela e migliorare la visibilità.',
+    challenge: 'Ricreare l’esperienza della farmacia in una nuova zona mantenendo i riferimenti del brand.',
+    solution: 'Nuovo layout con una doppia vetrina, una zona servizi più visibile e spazi espositivi ottimizzati.',
+    feedback: '“Il trasferimento è stato gestito con ordine e l’ambiente trasmette ora più fiducia ai clienti.”',
+  },
 ];
 
 export default function ProjectGallery() {
@@ -162,56 +210,74 @@ export default function ProjectGallery() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ duration: 0.5, ease }}
-              className="relative w-full h-[520px] md:h-[620px] overflow-hidden"
+              className="relative w-full overflow-hidden"
             >
-              <img
-                src={selected.imgSrc}
-                alt={selected.name}
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-              <div
-                className="absolute inset-0"
-                style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)' }}
-              />
-
-              {/* Bottone indietro */}
-              <button
-                onClick={() => setSelected(null)}
-                className="absolute top-5 left-5 z-20 inline-flex items-center gap-2 bg-black/40 backdrop-blur-sm border border-white/20 text-white text-xs tracking-[0.22em] uppercase font-sans font-semibold px-4 py-2.5 hover:bg-acid hover:text-dark hover:border-acid transition-colors duration-200"
-              >
-                <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
-                  <path d="M13 5H1M1 5L5 1M1 5L5 9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="square"/>
-                </svg>
-                Tutti i progetti
-              </button>
-
-              {/* Info progetto */}
-              <div className="absolute bottom-0 left-0 right-0 p-8 md:p-14 z-10">
-                <span className="border border-white/30 text-white text-xs tracking-[0.22em] uppercase font-sans px-3 py-1.5 bg-black/30 backdrop-blur-sm inline-block mb-5">
-                  {selected.category}
-                </span>
-                <p className="text-white/50 text-sm tracking-[0.3em] uppercase font-sans mb-2">
-                  {selected.location}
-                </p>
-                <h3
-                  className="font-display text-white uppercase leading-none"
-                  style={{ fontSize: 'clamp(2.2rem, 6vw, 6rem)' }}
-                >
-                  {selected.name}
-                </h3>
-              </div>
-
-              {/* Navigazione tra progetti */}
-              <div className="absolute bottom-8 right-8 md:bottom-14 md:right-14 z-10 flex gap-2">
-                {[featured, ...small].filter(p => p.name !== selected.name).slice(0, 3).map((p) => (
+              <div className="grid grid-cols-1 md:grid-cols-2 min-h-[520px] md:min-h-[620px]">
+                <div className="relative overflow-hidden">
+                  <img
+                    src={selected.imgSrc}
+                    alt={selected.name}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  <div
+                    className="absolute inset-0"
+                    style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.26) 45%, transparent 100%)' }}
+                  />
                   <button
-                    key={p.name}
-                    onClick={() => setSelected(p)}
-                    className="w-14 h-10 md:w-20 md:h-14 overflow-hidden opacity-50 hover:opacity-100 transition-opacity duration-200 border border-white/20"
+                    onClick={() => setSelected(null)}
+                    className="absolute top-5 left-5 z-20 inline-flex items-center gap-2 bg-black/40 backdrop-blur-sm border border-white/20 text-white text-xs tracking-[0.22em] uppercase font-sans font-semibold px-4 py-2.5 hover:bg-acid hover:text-dark hover:border-acid transition-colors duration-200"
                   >
-                    <img src={p.imgSrc} alt={p.name} className="w-full h-full object-cover" />
+                    <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
+                      <path d="M13 5H1M1 5L5 1M1 5L5 9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="square"/>
+                    </svg>
+                    Tutti i progetti
                   </button>
-                ))}
+                </div>
+
+                <div className="relative bg-[#050505] px-6 py-8 md:px-12 md:py-12 flex flex-col justify-center text-white">
+                  <div className="max-w-2xl">
+                    <span className="border border-white/20 text-white text-xs tracking-[0.22em] uppercase font-sans px-3 py-1.5 bg-white/5 backdrop-blur-sm inline-block mb-5">
+                      {selected.category}
+                    </span>
+                    <p className="text-white/50 text-sm tracking-[0.3em] uppercase font-sans mb-3">
+                      {selected.location}
+                    </p>
+                    <h3
+                      className="font-display uppercase leading-none"
+                      style={{ fontSize: 'clamp(2.2rem, 4vw, 4rem)' }}
+                    >
+                      {selected.name}
+                    </h3>
+                    <p className="text-white/70 text-base leading-relaxed mt-6 md:mt-8">
+                      {selected.brief}
+                    </p>
+
+                    <div className="mt-10 space-y-8">
+                      <div>
+                        <p className="text-acid text-xs tracking-[0.28em] uppercase font-sans mb-3">Sfida / Soluzione</p>
+                        <p className="text-white/70 leading-7">{selected.challenge}</p>
+                        <p className="text-white/70 leading-7 mt-4">{selected.solution}</p>
+                      </div>
+
+                      <div>
+                        <p className="text-acid text-xs tracking-[0.28em] uppercase font-sans mb-3">Feedback cliente</p>
+                        <p className="text-white/70 leading-7">{selected.feedback}</p>
+                      </div>
+                    </div>
+
+                    <div className="mt-10 flex flex-wrap gap-3">
+                      {[featured, ...small].filter(p => p.name !== selected.name).slice(0, 3).map((p) => (
+                        <button
+                          key={p.name}
+                          onClick={() => setSelected(p)}
+                          className="inline-flex items-center gap-2 bg-white/5 border border-white/15 text-white text-sm font-sans uppercase tracking-[0.18em] px-4 py-3 hover:bg-acid hover:text-dark transition-colors duration-200"
+                        >
+                          {p.name}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
             </motion.div>
           )}
