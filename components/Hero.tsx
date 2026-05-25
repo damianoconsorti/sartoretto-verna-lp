@@ -45,8 +45,9 @@ export default function Hero() {
               className="font-display text-white uppercase"
               style={{ fontSize: 'clamp(2.6rem, 8vw, 8.5rem)', lineHeight: 0.95 }}
             >
-              <span className="text-acid">FAI EVOLVERE</span><br />
-              LA TUA FARMACIA
+              <span>FAI EVOLVERE</span>
+              <span className="text-acid">LA TUA</span><br />
+              FARMACIA
             </motion.h1>
           </div>
 
