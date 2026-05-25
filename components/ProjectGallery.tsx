@@ -44,7 +44,7 @@ const small: Project[] = [
     name: 'Farmacia San Leo',
     location: 'Rimini',
     category: 'Restyling',
-    imgSrc: asset('SAN-LEO.jpg'),
+    imgSrc: asset('San-Leo-1.jpg'),
     gradient: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.08) 60%, transparent 100%)',
     brief: 'Restyling completo per modernizzare l’immagine e creare un’esperienza più confortevole per il cliente.',
     challenge: 'L’arredamento datato e le tonalità scure rendevano lo spazio percepito come poco invitante.',
@@ -66,7 +66,7 @@ const small: Project[] = [
     name: 'Farmacia Beneduce',
     location: 'Napoli',
     category: 'Trasferimento',
-    imgSrc: asset('BENEDUCE.jpg'),
+    imgSrc: asset('BENEDUCE.png'),
     gradient: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.08) 60%, transparent 100%)',
     brief: 'Trasferimento e riprogettazione completa del punto vendita per conservare clientela e migliorare la visibilità.',
     challenge: 'Ricreare l’esperienza della farmacia in una nuova zona mantenendo i riferimenti del brand.',
@@ -142,6 +142,7 @@ export default function ProjectGallery() {
                 <img
                   src={featured.imgSrc}
                   alt={featured.name}
+                  decoding="async"
                   className="absolute inset-0 w-full h-full object-cover md:grayscale md:group-hover:grayscale-0 [transition:filter_400ms_ease]"
                 />
                 <div className="absolute inset-0" style={{ background: featured.gradient }} />
@@ -179,6 +180,7 @@ export default function ProjectGallery() {
                       src={p.imgSrc}
                       alt={p.name}
                       loading="lazy"
+                      decoding="async"
                       className="absolute inset-0 w-full h-full object-cover md:grayscale md:group-hover:grayscale-0 [transition:filter_400ms_ease]"
                     />
                     <div className="absolute inset-0" style={{ background: p.gradient }} />
@@ -217,6 +219,8 @@ export default function ProjectGallery() {
                   <img
                     src={selected.imgSrc}
                     alt={selected.name}
+                    loading="lazy"
+                    decoding="async"
                     className="absolute inset-0 w-full h-full object-cover"
                   />
                   <div
