@@ -49,6 +49,15 @@ export default function Hero() {
               <span className="text-acid">LA TUA</span><br/>
               FARMACIA
             </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease, delay: 0.8 }}
+              className="text-white/80 text-xs md:text-sm leading-relaxed tracking-wider font-sans font-semibold mt-6 md:mt-8 max-w-2xl"
+            >
+              TRASFORMA LAYOUT E ARREDAMENTI PER MIGLIORARE<br/>
+              SERVIZI, FLUSSO CLIENTI E VENDITE
+            </motion.p>
           </div>
 
           {/* CTA buttons */}
@@ -63,12 +72,6 @@ export default function Hero() {
               className="inline-flex items-center justify-center gap-4 bg-white text-dark font-sans font-bold text-sm tracking-[0.16em] uppercase px-6 py-4 hover:bg-acid transition-colors duration-200"
             >
               Richiedi una consulenza →
-            </a>
-            <a
-              href="#realizzazioni"
-              className="inline-flex items-center justify-center gap-3 text-white/75 font-sans font-semibold text-sm tracking-[0.16em] uppercase hover:text-acid transition-colors duration-200"
-            >
-              Galleria progetti ↗
             </a>
           </motion.div>
         </div>
