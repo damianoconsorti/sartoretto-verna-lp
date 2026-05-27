@@ -127,10 +127,10 @@ export default function ContactForm() {
           </div>
 
           {/* Concept Book visual element - bottom right overflow */}
-          <div className="absolute -bottom-48 right-18 w-[40rem] h-[40rem] hidden lg:block pointer-events-none translate-x-10 translate-y-16">
+          <div className="absolute -bottom-48 right-6 w-[40rem] h-[40rem] hidden lg:block pointer-events-none translate-x-10 translate-y-16">
             <img
               src="/concept-book-cover.png"
-              alt="Concept Book 2024"
+              alt="Concept Book Sartoretto Verna 2026"
               className="w-full h-full object-contain object-left"
             />
           </div>
