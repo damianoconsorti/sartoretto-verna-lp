@@ -83,13 +83,13 @@ export default function ContactForm() {
     <section id="contatti" className="border-t border-[#e0e0e0]">
       <div className="grid grid-cols-1 lg:grid-cols-2">
 
-        {/* Left: headline */}
+        {/* Left: headline + concept book visual */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease }}
-          className="px-6 md:px-14 lg:px-20 py-16 md:py-28 flex flex-col justify-between gap-12 bg-[#ebebeb] lg:border-r border-[#ddd]"
+          className="relative px-6 md:px-14 lg:px-20 py-16 md:py-28 flex flex-col justify-between gap-12 bg-[#ebebeb] lg:border-r border-[#ddd] overflow-hidden min-h-[700px]"
         >
           <div>
             <p className="text-teal text-sm tracking-[0.32em] uppercase font-sans font-semibold mb-5">
@@ -115,6 +115,25 @@ export default function ContactForm() {
               </div>
             ))}
           </div>
+
+          {/* Bonus text + concept book visual */}
+          <div className="relative z-10 hidden lg:block">
+            <p className="text-xs tracking-[0.28em] uppercase font-bold text-[#333] mb-3">
+              Ricevi un bonus esclusivo
+            </p>
+            <p className="text-sm text-[#555] font-sans font-light max-w-[32ch] leading-relaxed mb-8">
+              Compila il form e ricevi subito il nostro <strong className="font-normal">Concept Book</strong> gratuitamente.
+            </p>
+          </div>
+
+          {/* Concept Book visual element - bottom right overflow */}
+          <div className="absolute -bottom-48 right-18 w-[40rem] h-[40rem] hidden lg:block pointer-events-none translate-x-10 translate-y-16">
+            <img
+              src="/concept-book-cover.png"
+              alt="Concept Book 2024"
+              className="w-full h-full object-contain object-left"
+            />
+          </div>
         </motion.div>
 
         {/* Right: form */}
@@ -125,95 +144,93 @@ export default function ContactForm() {
           transition={{ duration: 0.75, ease, delay: 0.1 }}
           className="px-6 md:px-14 lg:px-16 py-16 md:py-28 bg-[#f5f5f5]"
         >
-          {sent ? (
-            <div className="flex flex-col gap-5">
-              <div className="w-12 h-1 bg-green-500" />
-              <h3 className="font-display text-[#0a0a0a] uppercase text-3xl md:text-4xl leading-none">
-                Messaggio inviato.
-              </h3>
-              <p className="text-green-600 text-base md:text-lg font-sans font-semibold leading-relaxed">
-                Grazie! Sarai contattato da un nostro responsabile nel giro di 24h.
-              </p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col gap-8" noValidate>
 
-              {/* Nome + Cognome */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                <Field label="Nome" id="nome">
-                  <input id="nome" type="text" required autoComplete="given-name" placeholder="Mario"
-                    value={form.nome} onChange={(e) => update('nome', e.target.value)} className={inputCls} />
-                </Field>
-                <Field label="Cognome" id="cognome">
-                  <input id="cognome" type="text" required autoComplete="family-name" placeholder="Rossi"
-                    value={form.cognome} onChange={(e) => update('cognome', e.target.value)} className={inputCls} />
-                </Field>
-              </div>
-
-              {/* Email + Telefono */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                <Field label="Email" id="email">
-                  <input id="email" type="email" required autoComplete="email" placeholder="mario@farmacia.it"
-                    value={form.email} onChange={(e) => update('email', e.target.value)} className={inputCls} />
-                </Field>
-                <Field label="Telefono" id="telefono">
-                  <input id="telefono" type="tel" autoComplete="tel" placeholder="+39 06 1234567"
-                    value={form.telefono} onChange={(e) => update('telefono', e.target.value)} className={inputCls} />
-                </Field>
-              </div>
-
-              {/* Città + Nome farmacia */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                <Field label="Città" id="citta">
-                  <input id="citta" type="text" placeholder="Es. Roma"
-                    value={form.citta} onChange={(e) => update('citta', e.target.value)} className={inputCls} />
-                </Field>
-                <Field label="Nome farmacia" id="farmacia">
-                  <input id="farmacia" type="text" placeholder="Farmacia Centrale"
-                    value={form.farmacia} onChange={(e) => update('farmacia', e.target.value)} className={inputCls} />
-                </Field>
-              </div>
-
-              {/* Select tipologia */}
-              <Field label="Tipo di progetto" id="tipologia">
-                <select id="tipologia" required value={form.tipologia}
-                  onChange={(e) => update('tipologia', e.target.value)}
-                  className={`${inputCls} cursor-pointer appearance-none bg-transparent`}
-                >
-                  <option value="" disabled>Seleziona una tipologia…</option>
-                  {projectTypes.map((t) => <option key={t} value={t}>{t}</option>)}
-                </select>
-              </Field>
-
-              {/* Messaggio */}
-              <Field label="Messaggio (opzionale)" id="messaggio">
-                <textarea id="messaggio" rows={4} placeholder="Descrivi brevemente la tua farmacia e il progetto…"
-                  value={form.messaggio} onChange={(e) => update('messaggio', e.target.value)}
-                  className={`${inputCls} resize-none`} />
-              </Field>
-
-              <div className="flex flex-col gap-3">
-                <button
-                  type="submit"
-                  disabled={sending}
-                  className="w-full sm:w-auto self-start inline-flex items-center justify-center gap-4 bg-[#0a0a0a] text-white font-sans font-bold text-sm tracking-[0.22em] uppercase px-8 py-4 hover:bg-acid hover:text-dark transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[#0a0a0a] disabled:hover:text-white"
-                >
-                  {sending ? 'Invio in corso…' : 'Prenota una consulenza →'}
-                </button>
-
-                {error && (
-                  <p className="text-red-600 text-sm font-sans font-medium">
-                    {error}
-                  </p>
-                )}
-
-                <p className="text-[#aaa] text-sm font-sans">
-                  Inviando accetti la nostra{' '}
-                  <a href="#" className="underline hover:text-[#555] transition-colors">Privacy Policy</a>.
+          <div className="relative z-10 lg:max-w-full">
+            {sent ? (
+              <div className="flex flex-col gap-5">
+                <div className="w-12 h-1 bg-green-500" />
+                <h3 className="font-display text-[#0a0a0a] uppercase text-3xl md:text-4xl leading-none">
+                  Messaggio inviato.
+                </h3>
+                <p className="text-green-600 text-base md:text-lg font-sans font-semibold leading-relaxed">
+                  Grazie! Sarai contattato da un nostro responsabile nel giro di 24h.
                 </p>
               </div>
-            </form>
-          )}
+            ) : (
+              <form onSubmit={handleSubmit} className="flex flex-col gap-8" noValidate>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                  <Field label="Nome" id="nome">
+                    <input id="nome" type="text" required autoComplete="given-name" placeholder="Mario"
+                      value={form.nome} onChange={(e) => update('nome', e.target.value)} className={inputCls} />
+                  </Field>
+                  <Field label="Cognome" id="cognome">
+                    <input id="cognome" type="text" required autoComplete="family-name" placeholder="Rossi"
+                      value={form.cognome} onChange={(e) => update('cognome', e.target.value)} className={inputCls} />
+                  </Field>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                  <Field label="Email" id="email">
+                    <input id="email" type="email" required autoComplete="email" placeholder="mario@farmacia.it"
+                      value={form.email} onChange={(e) => update('email', e.target.value)} className={inputCls} />
+                  </Field>
+                  <Field label="Telefono" id="telefono">
+                    <input id="telefono" type="tel" autoComplete="tel" placeholder="+39 06 1234567"
+                      value={form.telefono} onChange={(e) => update('telefono', e.target.value)} className={inputCls} />
+                  </Field>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                  <Field label="Città" id="citta">
+                    <input id="citta" type="text" placeholder="Es. Roma"
+                      value={form.citta} onChange={(e) => update('citta', e.target.value)} className={inputCls} />
+                  </Field>
+                  <Field label="Nome farmacia" id="farmacia">
+                    <input id="farmacia" type="text" placeholder="Farmacia Centrale"
+                      value={form.farmacia} onChange={(e) => update('farmacia', e.target.value)} className={inputCls} />
+                  </Field>
+                </div>
+
+                <Field label="Tipo di progetto" id="tipologia">
+                  <select id="tipologia" required value={form.tipologia}
+                    onChange={(e) => update('tipologia', e.target.value)}
+                    className={`${inputCls} cursor-pointer appearance-none bg-transparent`}
+                  >
+                    <option value="" disabled>Seleziona una tipologia…</option>
+                    {projectTypes.map((t) => <option key={t} value={t}>{t}</option>)}
+                  </select>
+                </Field>
+
+                <Field label="Messaggio (opzionale)" id="messaggio">
+                  <textarea id="messaggio" rows={4} placeholder="Descrivi brevemente la tua farmacia e il progetto…"
+                    value={form.messaggio} onChange={(e) => update('messaggio', e.target.value)}
+                    className={`${inputCls} resize-none`} />
+                </Field>
+
+                <div className="flex flex-col gap-3">
+                  <button
+                    type="submit"
+                    disabled={sending}
+                    className="w-full sm:w-auto self-start inline-flex items-center justify-center gap-4 bg-[#0a0a0a] text-white font-sans font-bold text-sm tracking-[0.22em] uppercase px-8 py-4 hover:bg-acid hover:text-dark transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[#0a0a0a] disabled:hover:text-white"
+                  >
+                    {sending ? 'Invio in corso…' : 'Prenota una consulenza →'}
+                  </button>
+
+                  {error && (
+                    <p className="text-red-600 text-sm font-sans font-medium">
+                      {error}
+                    </p>
+                  )}
+
+                  <p className="text-[#aaa] text-sm font-sans">
+                    Inviando accetti la nostra{' '}
+                    <a href="#" className="underline hover:text-[#555] transition-colors">Privacy Policy</a>.
+                  </p>
+                </div>
+              </form>
+            )}
+          </div>
         </motion.div>
       </div>
     </section>
