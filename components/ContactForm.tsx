@@ -37,19 +37,14 @@ const empty: FormState = {
 const inputCls =
   'bg-transparent border-b border-[#ccc] text-[#0a0a0a] text-base font-sans font-light py-3 w-full focus:outline-none focus:border-[#0a0a0a] transition-colors duration-200 placeholder:text-[#bbb]';
 
-function Field({ label, id, children, required = false, error }: { label: string; id: string; children: React.ReactNode; required?: boolean; error?: string }) {
+function Field({ label, id, children, required = false }: { label: React.ReactNode; id: string; children: React.ReactNode; required?: boolean }) {
   return (
     <div className="flex flex-col gap-1.5">
       <label htmlFor={id} className="text-sm tracking-[0.28em] uppercase font-sans text-[#666] font-semibold">
         {label}
-        {required && <span className="ml-1 text-red-600" aria-hidden="true">*</span>}
+        {required && <span className="ml-1 text-[#444]" aria-hidden="true">*</span>}
       </label>
       {children}
-      {error && (
-        <p className="text-red-600 text-xs font-sans mt-1" id={`${id}-error`}>
-          {error}
-        </p>
-      )}
     </div>
   );
 }
@@ -209,7 +204,7 @@ export default function ContactForm() {
               <form onSubmit={handleSubmit} className="flex flex-col gap-8" noValidate>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                  <Field label="Nome" id="nome" required error={validationErrors.nome}>
+                  <Field label="Nome" id="nome" required>
                     <input
                       id="nome"
                       type="text"
@@ -223,8 +218,13 @@ export default function ContactForm() {
                       aria-describedby={validationErrors.nome ? 'nome-error' : undefined}
                     />
                   </Field>
+                  {validationErrors.nome && (
+                    <p id="nome-error" className="text-red-600 text-xs font-sans mt-1">
+                      {validationErrors.nome}
+                    </p>
+                  )}
 
-                  <Field label="Cognome" id="cognome" required error={validationErrors.cognome}>
+                  <Field label="Cognome" id="cognome" required>
                     <input
                       id="cognome"
                       type="text"
@@ -238,10 +238,15 @@ export default function ContactForm() {
                       aria-describedby={validationErrors.cognome ? 'cognome-error' : undefined}
                     />
                   </Field>
+                  {validationErrors.cognome && (
+                    <p id="cognome-error" className="text-red-600 text-xs font-sans mt-1">
+                      {validationErrors.cognome}
+                    </p>
+                  )}
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                  <Field label="Email" id="email" required error={validationErrors.email}>
+                  <Field label="Email" id="email" required>
                     <input
                       id="email"
                       type="email"
@@ -255,8 +260,13 @@ export default function ContactForm() {
                       aria-describedby={validationErrors.email ? 'email-error' : undefined}
                     />
                   </Field>
+                  {validationErrors.email && (
+                    <p id="email-error" className="text-red-600 text-xs font-sans mt-1">
+                      {validationErrors.email}
+                    </p>
+                  )}
 
-                  <Field label="Telefono" id="telefono" required error={validationErrors.telefono}>
+                  <Field label="Telefono" id="telefono" required>
                     <input
                       id="telefono"
                       type="tel"
@@ -270,10 +280,15 @@ export default function ContactForm() {
                       aria-describedby={validationErrors.telefono ? 'telefono-error' : undefined}
                     />
                   </Field>
+                  {validationErrors.telefono && (
+                    <p id="telefono-error" className="text-red-600 text-xs font-sans mt-1">
+                      {validationErrors.telefono}
+                    </p>
+                  )}
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                  <Field label="Città" id="citta" required error={validationErrors.citta}>
+                  <Field label="Città" id="citta" required>
                     <input
                       id="citta"
                       type="text"
@@ -286,8 +301,13 @@ export default function ContactForm() {
                       aria-describedby={validationErrors.citta ? 'citta-error' : undefined}
                     />
                   </Field>
+                  {validationErrors.citta && (
+                    <p id="citta-error" className="text-red-600 text-xs font-sans mt-1">
+                      {validationErrors.citta}
+                    </p>
+                  )}
 
-                  <Field label="Nome farmacia" id="farmacia" required error={validationErrors.farmacia}>
+                  <Field label="Nome farmacia" id="farmacia" required>
                     <input
                       id="farmacia"
                       type="text"
@@ -300,9 +320,14 @@ export default function ContactForm() {
                       aria-describedby={validationErrors.farmacia ? 'farmacia-error' : undefined}
                     />
                   </Field>
+                  {validationErrors.farmacia && (
+                    <p id="farmacia-error" className="text-red-600 text-xs font-sans mt-1">
+                      {validationErrors.farmacia}
+                    </p>
+                  )}
                 </div>
 
-                <Field label="Tipo di progetto" id="tipologia" required error={validationErrors.tipologia}>
+                <Field label="Tipo di progetto" id="tipologia" required>
                   <select
                     id="tipologia"
                     required
@@ -316,8 +341,23 @@ export default function ContactForm() {
                     {projectTypes.map((t) => <option key={t} value={t}>{t}</option>)}
                   </select>
                 </Field>
+                {validationErrors.tipologia && (
+                  <p id="tipologia-error" className="text-red-600 text-xs font-sans mt-1">
+                    {validationErrors.tipologia}
+                  </p>
+                )}
 
-                <Field label="Messaggio (opzionale)" id="messaggio">
+                <Field
+                  label={
+                    <>
+                      Messaggio
+                      <span className="ml-2 text-xs font-normal tracking-[0.16em] text-[#666] normal-case">
+                        (opzionale)
+                      </span>
+                    </>
+                  }
+                  id="messaggio"
+                >
                   <textarea
                     id="messaggio"
                     rows={4}
