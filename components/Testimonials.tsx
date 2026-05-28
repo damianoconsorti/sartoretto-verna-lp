@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -17,7 +17,7 @@ const videos: VideoItem[] = [
     name: 'Farmacia San Leo',
     location: 'Reggio Calabria (RC)',
     src: 'https://sv-it.b-cdn.net/Farmacia%20San%20Leo%20-%20%20intervista.mp4',
-    poster: asset('SAN-LEO.jpg'),
+    poster: asset('San-Leo-1.jpg'),
     accent: '#00B5B5',
   },
   {
@@ -43,14 +43,24 @@ const videos: VideoItem[] = [
   },
 ];
 
-const VideoCard: React.FC<{ video: VideoItem; index: number }> = ({ video, index }) => {
-  const [playing, setPlaying] = useState(false);
+const VideoCard: React.FC<{
+  video: VideoItem;
+  index: number;
+  isActive: boolean;
+  onActivate: (index: number) => void;
+  registerRef: (index: number, node: HTMLVideoElement | null) => void;
+}> = ({ video, index, isActive, onActivate, registerRef }) => {
   const ref = useRef<HTMLVideoElement>(null);
 
   const handlePlay = () => {
+    onActivate(index);
     ref.current?.play();
-    setPlaying(true);
   };
+
+  useEffect(() => {
+    registerRef(index, ref.current);
+    return () => registerRef(index, null);
+  }, [index, registerRef]);
 
   return (
     <motion.div
@@ -70,9 +80,14 @@ const VideoCard: React.FC<{ video: VideoItem; index: number }> = ({ video, index
           src={video.src}
           poster={video.poster}
           className="absolute inset-0 w-full h-full object-cover"
-          controls={playing}
+          controls={isActive}
           preload="metadata"
           playsInline
+          onPause={() => {
+            if (isActive && ref.current?.paused) {
+              onActivate(-1);
+            }
+          }}
         />
 
         {/* Nome farmacia — sempre visibile in cima, sopra tutto */}
@@ -92,7 +107,7 @@ const VideoCard: React.FC<{ video: VideoItem; index: number }> = ({ video, index
         </div>
 
         {/* Play overlay — solo prima del play */}
-        {!playing && (
+        {!isActive && (
           <div
             className="absolute inset-0 z-20 flex items-center justify-center cursor-pointer group/play"
             style={{ background: 'rgba(0,0,0,0.28)' }}
@@ -114,6 +129,20 @@ const VideoCard: React.FC<{ video: VideoItem; index: number }> = ({ video, index
 };
 
 export default function Testimonials() {
+  const activeVideo = useRef<(HTMLVideoElement | null)[]>([]);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+  const handleActivate = (index: number) => {
+    if (activeIndex !== null && activeIndex !== index) {
+      activeVideo.current[activeIndex]?.pause();
+    }
+    setActiveIndex(index >= 0 ? index : null);
+  };
+
+  const registerRef = (index: number, node: HTMLVideoElement | null) => {
+    activeVideo.current[index] = node;
+  };
+
   return (
     <section className="bg-[#0a0a0a] border-t border-white/10 py-20 md:py-32">
       <div className="px-6 md:px-14 lg:px-24">
@@ -141,7 +170,14 @@ export default function Testimonials() {
         {/* 4 video verticali — gap 10px */}
         <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: '10px' }}>
           {videos.map((v, i) => (
-            <VideoCard key={v.name} video={v} index={i} />
+            <VideoCard
+              key={v.name}
+              video={v}
+              index={i}
+              isActive={activeIndex === i}
+              onActivate={handleActivate}
+              registerRef={registerRef}
+            />
           ))}
         </div>
 

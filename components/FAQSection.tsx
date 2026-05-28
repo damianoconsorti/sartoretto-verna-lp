@@ -4,18 +4,18 @@ import { motion, AnimatePresence } from 'framer-motion';
 const ease = [0.22, 1, 0.36, 1] as const;
 
 const faqs = [
-  { q: 'Quanto tempo richiede una ristrutturazione completa?',
-    a: 'Da 3 a 6 settimane in media, spesso a farmacia aperta. I tempi dipendono dalla metratura e dalla complessità del progetto. In fase di consulenza ti presentiamo un calendario di cantiere preciso.' },
-  { q: 'Operate in tutta Italia e all\'estero?',
-    a: 'Sì. Siamo presenti su tutto il territorio italiano e in oltre 30 paesi nel mondo grazie a una rete di partner locali certificati. Ogni cantiere è seguito direttamente da un nostro project manager.' },
-  { q: 'Come funziona il primo contatto?',
-    a: 'Dopo la richiesta, un nostro Architect Manager ti contatta per comprendere obiettivi, metratura, stato attuale della farmacia e tempistiche. Da lì definiamo il percorso più adatto: analisi, progetto, produzione e cantiere.' },
-  { q: 'È possibile lavorare con la farmacia aperta?',
-    a: 'Nella grande maggioranza dei cantieri sì. Organizziamo i lavori per fasi, spesso nelle ore notturne o nel weekend, per mantenere la farmacia operativa e proteggere il fatturato durante i lavori.' },
-  { q: 'Quanto costa arredare una farmacia?',
-    a: 'Ogni progetto è unico, quindi non esistono prezzi standard. In consulenza ti forniremo un preventivo dettagliato basato sulla metratura, i materiali, la tipologia di intervento e le tue esigenze specifiche.' },
-  { q: 'Producete voi stessi gli arredi?',
-    a: 'Sì. Tutti i nostri arredi sono progettati e prodotti nei nostri stabilimenti italiani. Questo ci garantisce qualità totale, massima personalizzazione e il rispetto rigoroso dei tempi di consegna.' },
+  { q: 'Cosa succede dopo aver compilato il form?',
+    a: 'Verrai ricontattato per un primo confronto dedicato, in cui analizzeremo il tuo progetto e capiremo se e come possiamo supportarti.' },
+  { q: 'Quanto costa progettare o ristrutturare una farmacia?',
+    a: 'Ogni progetto è diverso. Il nostro approccio parte dagli obiettivi di business e dal contesto specifico, per costruire una soluzione coerente. Il primo confronto serve proprio a definire un ordine di grandezza realistico.' },
+  { q: 'Fate solo arredo farmacia o anche progettazione completa?',
+    a: 'Non siamo un fornitore di arredi. Ci occupiamo di progettazione strategica completa: layout, flussi, esperienza, identità e realizzazione dello spazio.' },
+  { q: 'Lavorate solo su nuove aperture o anche su ristrutturazioni?',
+    a: 'Entrambe. Seguiamo nuove aperture, ristrutturazioni e restyling strategici, adattando il progetto allo stato attuale della farmacia.' },
+  { q: 'Dovrò chiudere la farmacia durante i lavori?',
+    a: 'Assolutamente no. Il nostro sistema di allestimento è studiato per permetterti di continuare a servire i tuoi clienti mentre noi trasformiamo il tuo spazio, proteggendo il tuo fatturato quotidiano senza alcun disagio.' },
+  { q: 'Quanto dura un progetto?',
+    a: 'Dipende dalla complessità. In generale, un progetto completo richiede alcune settimane per la fase strategica e progettuale, seguite dalla realizzazione operativa.' },
 ];
 
 const FAQItem: React.FC<{ item: typeof faqs[0]; index: number }> = ({ item, index }) => {
