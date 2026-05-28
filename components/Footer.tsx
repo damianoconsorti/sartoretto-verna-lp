@@ -30,11 +30,12 @@ export default function Footer() {
   const [privacyOpen, setPrivacyOpen] = useState(false);
 
   return (
-    <footer className="bg-[#0a0a0a] border-t border-white/10 py-8 px-8 md:px-14 lg:px-24">
-      <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] md:items-center gap-6">
-        <p className="order-3 md:order-1 text-center md:text-left text-white/30 text-sm font-sans">
-          &copy; {new Date().getFullYear()} Sartoretto Verna S.R.L. &mdash; P.IVA 07291841000
-        </p>
+    <>
+      <footer className="bg-[#0a0a0a] border-t border-white/10 py-8 px-8 md:px-14 lg:px-24">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] md:items-center gap-6">
+          <p className="order-3 md:order-1 text-center md:text-left text-white/30 text-sm font-sans">
+            &copy; {new Date().getFullYear()} Sartoretto Verna S.R.L. &mdash; P.IVA 07291841000
+          </p>
 
           <nav className="order-1 md:order-2 flex justify-center" aria-label="Canali social Sartoretto Verna">
             <div className="flex flex-wrap items-center justify-center gap-2.5">

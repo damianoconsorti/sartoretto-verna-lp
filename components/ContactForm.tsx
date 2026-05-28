@@ -18,6 +18,18 @@ interface FormState {
   messaggio: string;
 }
 
+type FieldErrors = Partial<Record<keyof Omit<FormState, 'messaggio'>, string>>;
+
+const requiredFields: Array<keyof Omit<FormState, 'messaggio'>> = [
+  'nome',
+  'cognome',
+  'email',
+  'telefono',
+  'citta',
+  'farmacia',
+  'tipologia',
+];
+
 const empty: FormState = {
   nome: '', cognome: '', farmacia: '', email: '', telefono: '', citta: '', tipologia: '', messaggio: '',
 };
@@ -25,13 +37,19 @@ const empty: FormState = {
 const inputCls =
   'bg-transparent border-b border-[#ccc] text-[#0a0a0a] text-base font-sans font-light py-3 w-full focus:outline-none focus:border-[#0a0a0a] transition-colors duration-200 placeholder:text-[#bbb]';
 
-function Field({ label, id, children }: { label: string; id: string; children: React.ReactNode }) {
+function Field({ label, id, children, required = false, error }: { label: string; id: string; children: React.ReactNode; required?: boolean; error?: string }) {
   return (
     <div className="flex flex-col gap-1.5">
       <label htmlFor={id} className="text-sm tracking-[0.28em] uppercase font-sans text-[#666] font-semibold">
         {label}
+        {required && <span className="ml-1 text-red-600" aria-hidden="true">*</span>}
       </label>
       {children}
+      {error && (
+        <p className="text-red-600 text-xs font-sans mt-1" id={`${id}-error`}>
+          {error}
+        </p>
+      )}
     </div>
   );
 }
@@ -41,16 +59,46 @@ export default function ContactForm() {
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [validationErrors, setValidationErrors] = useState<FieldErrors>({});
   const [privacyOpen, setPrivacyOpen] = useState(false);
 
   function update(k: keyof FormState, v: string) {
     setForm((p) => ({ ...p, [k]: v }));
+    setValidationErrors((prev) => {
+      if (!prev[k as keyof Omit<FormState, 'messaggio'>]) return prev;
+      const next = { ...prev };
+      delete next[k as keyof Omit<FormState, 'messaggio'>];
+      return next;
+    });
   }
+
+  const inputErrorClass = (field: keyof Omit<FormState, 'messaggio'>) =>
+    validationErrors[field] ? 'border-red-500 focus:border-red-500' : '';
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    setSending(true);
     setError(null);
+
+    const newErrors: FieldErrors = {};
+
+    requiredFields.forEach((field) => {
+      if (!form[field]?.trim()) {
+        newErrors[field] = 'Campo obbligatorio';
+      }
+    });
+
+    if (form.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      newErrors.email = 'Inserisci un indirizzo email valido';
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setValidationErrors(newErrors);
+      setError('Completa i campi obbligatori evidenziati prima di inviare.');
+      return;
+    }
+
+    setValidationErrors({});
+    setSending(true);
 
     try {
       const payload: Record<string, string> = {
@@ -161,42 +209,108 @@ export default function ContactForm() {
               <form onSubmit={handleSubmit} className="flex flex-col gap-8" noValidate>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                  <Field label="Nome" id="nome">
-                    <input id="nome" type="text" required autoComplete="given-name" placeholder="Mario"
-                      value={form.nome} onChange={(e) => update('nome', e.target.value)} className={inputCls} />
+                  <Field label="Nome" id="nome" required error={validationErrors.nome}>
+                    <input
+                      id="nome"
+                      type="text"
+                      required
+                      autoComplete="given-name"
+                      placeholder="Mario"
+                      value={form.nome}
+                      onChange={(e) => update('nome', e.target.value)}
+                      className={`${inputCls} ${inputErrorClass('nome')}`}
+                      aria-invalid={Boolean(validationErrors.nome)}
+                      aria-describedby={validationErrors.nome ? 'nome-error' : undefined}
+                    />
                   </Field>
-                  <Field label="Cognome" id="cognome">
-                    <input id="cognome" type="text" required autoComplete="family-name" placeholder="Rossi"
-                      value={form.cognome} onChange={(e) => update('cognome', e.target.value)} className={inputCls} />
+
+                  <Field label="Cognome" id="cognome" required error={validationErrors.cognome}>
+                    <input
+                      id="cognome"
+                      type="text"
+                      required
+                      autoComplete="family-name"
+                      placeholder="Rossi"
+                      value={form.cognome}
+                      onChange={(e) => update('cognome', e.target.value)}
+                      className={`${inputCls} ${inputErrorClass('cognome')}`}
+                      aria-invalid={Boolean(validationErrors.cognome)}
+                      aria-describedby={validationErrors.cognome ? 'cognome-error' : undefined}
+                    />
                   </Field>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                  <Field label="Email" id="email">
-                    <input id="email" type="email" required autoComplete="email" placeholder="mario@farmacia.it"
-                      value={form.email} onChange={(e) => update('email', e.target.value)} className={inputCls} />
+                  <Field label="Email" id="email" required error={validationErrors.email}>
+                    <input
+                      id="email"
+                      type="email"
+                      required
+                      autoComplete="email"
+                      placeholder="mario@farmacia.it"
+                      value={form.email}
+                      onChange={(e) => update('email', e.target.value)}
+                      className={`${inputCls} ${inputErrorClass('email')}`}
+                      aria-invalid={Boolean(validationErrors.email)}
+                      aria-describedby={validationErrors.email ? 'email-error' : undefined}
+                    />
                   </Field>
-                  <Field label="Telefono" id="telefono">
-                    <input id="telefono" type="tel" autoComplete="tel" placeholder="+39 06 1234567"
-                      value={form.telefono} onChange={(e) => update('telefono', e.target.value)} className={inputCls} />
+
+                  <Field label="Telefono" id="telefono" required error={validationErrors.telefono}>
+                    <input
+                      id="telefono"
+                      type="tel"
+                      required
+                      autoComplete="tel"
+                      placeholder="+39 06 1234567"
+                      value={form.telefono}
+                      onChange={(e) => update('telefono', e.target.value)}
+                      className={`${inputCls} ${inputErrorClass('telefono')}`}
+                      aria-invalid={Boolean(validationErrors.telefono)}
+                      aria-describedby={validationErrors.telefono ? 'telefono-error' : undefined}
+                    />
                   </Field>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                  <Field label="Città" id="citta">
-                    <input id="citta" type="text" placeholder="Es. Roma"
-                      value={form.citta} onChange={(e) => update('citta', e.target.value)} className={inputCls} />
+                  <Field label="Città" id="citta" required error={validationErrors.citta}>
+                    <input
+                      id="citta"
+                      type="text"
+                      required
+                      placeholder="Es. Roma"
+                      value={form.citta}
+                      onChange={(e) => update('citta', e.target.value)}
+                      className={`${inputCls} ${inputErrorClass('citta')}`}
+                      aria-invalid={Boolean(validationErrors.citta)}
+                      aria-describedby={validationErrors.citta ? 'citta-error' : undefined}
+                    />
                   </Field>
-                  <Field label="Nome farmacia" id="farmacia">
-                    <input id="farmacia" type="text" placeholder="Farmacia Centrale"
-                      value={form.farmacia} onChange={(e) => update('farmacia', e.target.value)} className={inputCls} />
+
+                  <Field label="Nome farmacia" id="farmacia" required error={validationErrors.farmacia}>
+                    <input
+                      id="farmacia"
+                      type="text"
+                      required
+                      placeholder="Farmacia Centrale"
+                      value={form.farmacia}
+                      onChange={(e) => update('farmacia', e.target.value)}
+                      className={`${inputCls} ${inputErrorClass('farmacia')}`}
+                      aria-invalid={Boolean(validationErrors.farmacia)}
+                      aria-describedby={validationErrors.farmacia ? 'farmacia-error' : undefined}
+                    />
                   </Field>
                 </div>
 
-                <Field label="Tipo di progetto" id="tipologia">
-                  <select id="tipologia" required value={form.tipologia}
+                <Field label="Tipo di progetto" id="tipologia" required error={validationErrors.tipologia}>
+                  <select
+                    id="tipologia"
+                    required
+                    value={form.tipologia}
                     onChange={(e) => update('tipologia', e.target.value)}
-                    className={`${inputCls} cursor-pointer appearance-none bg-transparent`}
+                    className={`${inputCls} ${inputErrorClass('tipologia')} cursor-pointer appearance-none bg-transparent`}
+                    aria-invalid={Boolean(validationErrors.tipologia)}
+                    aria-describedby={validationErrors.tipologia ? 'tipologia-error' : undefined}
                   >
                     <option value="" disabled>Seleziona una tipologia…</option>
                     {projectTypes.map((t) => <option key={t} value={t}>{t}</option>)}
@@ -204,9 +318,14 @@ export default function ContactForm() {
                 </Field>
 
                 <Field label="Messaggio (opzionale)" id="messaggio">
-                  <textarea id="messaggio" rows={4} placeholder="Descrivi brevemente la tua farmacia e il progetto…"
-                    value={form.messaggio} onChange={(e) => update('messaggio', e.target.value)}
-                    className={`${inputCls} resize-none`} />
+                  <textarea
+                    id="messaggio"
+                    rows={4}
+                    placeholder="Descrivi brevemente la tua farmacia e il progetto…"
+                    value={form.messaggio}
+                    onChange={(e) => update('messaggio', e.target.value)}
+                    className={`${inputCls} resize-none`}
+                  />
                 </Field>
 
                 <div className="flex flex-col gap-3">
