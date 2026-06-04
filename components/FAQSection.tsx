@@ -9,7 +9,7 @@ const faqs = [
   { q: 'Quanto costa progettare o ristrutturare una farmacia?',
     a: 'Ogni progetto è diverso. Il nostro approccio parte dagli obiettivi di business e dal contesto specifico, per costruire una soluzione coerente. Il primo confronto serve proprio a definire un ordine di grandezza realistico.' },
   { q: 'Fate solo arredo farmacia o anche progettazione completa?',
-    a: 'Non siamo un fornitore di arredi. Ci occupiamo di progettazione strategica completa: layout, flussi, esperienza, identità e realizzazione dello spazio.' },
+    a: 'Non siamo solo un fornitore di arredi. Ci occupiamo di progettazione strategica completa: layout, flussi, esperienza, identità e realizzazione dello spazio.' },
   { q: 'Lavorate solo su nuove aperture o anche su ristrutturazioni?',
     a: 'Entrambe. Seguiamo nuove aperture, ristrutturazioni e restyling strategici, adattando il progetto allo stato attuale della farmacia.' },
   { q: 'Dovrò chiudere la farmacia durante i lavori?',
