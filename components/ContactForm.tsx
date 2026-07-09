@@ -125,6 +125,9 @@ export default function ContactForm() {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams(payload).toString(),
       });
+      if (typeof window !== 'undefined' && typeof (window as any).fbq === 'function') {
+        (window as any).fbq('track', 'Lead');
+      }
       setSent(true);
     } catch {
       setError('Si è verificato un errore. Riprova o chiamaci.');
