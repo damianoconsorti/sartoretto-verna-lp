@@ -6,8 +6,8 @@ const ease = [0.22, 1, 0.36, 1] as const;
 const stats = [
   { value: '1965', color: '#CCFF00', label: 'Fondazione' },
   { value: '3A', color: '#00B5B5', label: 'generazione di architetti' },
-  { value: '+40', color: '#CC00FF', label: 'paesi nel mondo dove abbiamo realizzato farmacie' },
-  { value: '+2500', color: '#0a0a0a', label: 'realizzazioni completate nel mondo' },
+  { value: '48', color: '#CC00FF', label: 'paesi nel mondo dove abbiamo realizzato farmacie' },
+  { value: '+3000', color: '#0a0a0a', label: 'realizzazioni completate nel mondo' },
 ];
 
 export default function StatsSection() {
